@@ -6,4 +6,6 @@ const callbacks_1 = require("./callbacks");
 exports.Callbacks = callbacks_1.Callbacks;
 const cookie_1 = require("./cookie");
 exports.Cookie = cookie_1.Cookie;
+const uid_1 = require("./uid");
+exports.UID = uid_1.UID;
 //# sourceMappingURL=index.js.map
