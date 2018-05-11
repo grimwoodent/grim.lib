@@ -1,6 +1,6 @@
 {
   "name": "grim.lib",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Lib with different usefull stuff",
   "main": "src/index.ts",
   "files": [
