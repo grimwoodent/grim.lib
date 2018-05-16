@@ -3,6 +3,7 @@ import {
     Callbacks,
     Cookie,
     UID,
+    Collection,
 } from './src';
 
 export {
@@ -10,4 +11,5 @@ export {
     Callbacks,
     Cookie,
     UID,
+    Collection,
 };

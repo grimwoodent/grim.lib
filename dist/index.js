@@ -8,4 +8,6 @@ const cookie_1 = require("./cookie");
 exports.Cookie = cookie_1.Cookie;
 const uid_1 = require("./uid");
 exports.UID = uid_1.UID;
+const Collection = require("./collection");
+exports.Collection = Collection;
 //# sourceMappingURL=index.js.map
