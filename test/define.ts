@@ -25,6 +25,20 @@ describe('Define', () => {
                 obj[propertyName] = null;
             }).to.throw();
         });
+
+        it('should undef property', () => {
+            const obj = {};
+            const propertyName = 'newProperty';
+            const property = 'value';
+
+            Define.property(obj, propertyName, property).var();
+
+            expect((obj as any)[propertyName]).to.be.equals(property);
+
+            Define.undef(obj, propertyName);
+
+            expect((obj as any)[propertyName]).to.be.equals(undefined);
+        });
     });
 
     describe('Getter', () => {

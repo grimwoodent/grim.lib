@@ -14,6 +14,10 @@ class Define {
     static property(object, name, value) {
         return new property_1.Property(object, name, value);
     }
+    static undef(obj, name) {
+        delete obj[name];
+        return obj;
+    }
 }
 exports.Define = Define;
 //# sourceMappingURL=index.js.map
