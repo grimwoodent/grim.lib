@@ -2,6 +2,52 @@
 
 @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
 
+## Methods
+
+### Define
+
+#### static property(object: any, name: string, value: any): Property
+
+Create new configurator for property.
+
+``` JavaScript
+Define.property(object, propertyName, property);
+```
+
+#### static undef(obj: any, name: string): any
+
+Delete propery from object. Returns object.
+
+``` JavaScript
+Define.undef(object, propertyName);
+```
+
+### Property
+
+#### readonly(): Property
+
+Make this property readonly (writable = false);
+
+#### hidden(): Property
+
+Make property hidden in inspector (enumerable = false);
+
+#### final(): Property
+
+Make property final (configurable = false);
+
+#### var(): any
+
+Define property as variable.
+
+#### getter(): any
+
+Define property as getter. Value must be an function.
+
+#### setter(): any
+
+Define property as setter. Value must be an function.
+
 ## Examples
 
 ### Default variable
@@ -44,6 +90,14 @@ true if and only if the type of this property descriptor may be changed and if t
 import { Define } from 'grim.lib';
 
 Define.property(object, propertyName, property).final().var();
+```
+
+### Undefine property
+
+``` JavaScript
+import { Define } from 'grim.lib';
+
+Define.undef(object, propertyName);
 ```
 
 # Callbacks
