@@ -27,3 +27,4 @@ composer.phar
 
 # Linter cahce
 .eslintcache
+.rpt2_cache
