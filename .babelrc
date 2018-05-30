@@ -1,4 +1,5 @@
 {
+  "exclude": "node_modules/**",
   "presets": [
     ["@babel/preset-stage-0", {
       "decoratorsLegacy": true
@@ -8,7 +9,8 @@
       "targets": {
         "browsers": ["last 2 versions", "ie >= 9"]
       }
-    }]
+    }],
+    "@babel/preset-typescript"
   ],
   "plugins": [
     "@babel/plugin-proposal-class-properties"
