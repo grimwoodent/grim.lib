@@ -9,7 +9,7 @@
     "index.ts"
   ],
   "dependencies": {
-    "@grimwoodent/uid": "^1.0.0"
+    "@grimwoodent/uid": "^1.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.47",

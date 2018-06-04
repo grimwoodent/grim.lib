@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import 'mocha';
-import { Define } from '../src';
+import { Define } from '../dist';
 
 describe('Define', () => {
     describe('Var', () => {

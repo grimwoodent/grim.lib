@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import 'mocha';
-import { Collection } from '../src';
+import { Collection } from '../dist';
 
 describe('Collection', () => {
     const strategyKey = 'strategy';

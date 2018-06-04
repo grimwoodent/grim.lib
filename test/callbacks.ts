@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import 'mocha';
-import { Callbacks } from '../src';
+import { Callbacks } from '../dist';
 
 describe('Callbacks', () => {
     it('should add callback', (done) => {
