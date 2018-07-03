@@ -65,4 +65,16 @@ describe('Callbacks', () => {
 
         events.trigger('doneCallback', argValue);
     });
+
+    it('should remove callback', () => {
+        const doneCallback1 = () => {};
+        const doneCallback2 = () => {};
+        const doneCallback3 = () => {};
+        const events = new Callbacks({
+            doneCallback: [doneCallback1, doneCallback2, doneCallback3],
+        });
+
+        events.remove({ doneCallback: [doneCallback2] });
+        expect(events.get('doneCallback')).to.be.deep.equals([doneCallback1, doneCallback3]);
+    });
 });

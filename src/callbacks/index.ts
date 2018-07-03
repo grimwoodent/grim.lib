@@ -1,11 +1,12 @@
 type EventHandlerFn = (...args: any[]) => any;
+type EventHandlerFnSet = EventHandlerFn[];
 
 interface IEventHandlerSetProps {
-    [key: string]: EventHandlerFn;
+    [key: string]: EventHandlerFn | EventHandlerFnSet;
 }
 
 interface IEventHandlerSet {
-    [key: string]: EventHandlerFn[];
+    [key: string]: EventHandlerFnSet;
 }
 
 export class Callbacks {
@@ -31,9 +32,9 @@ export class Callbacks {
                 this.events[key] = [];
             }
 
-            const newEvents = Array.isArray(events[key])
-                ? events[key]
-                : [events[key]];
+            const newEvents: EventHandlerFnSet = Array.isArray(events[key])
+                ? events[key] as EventHandlerFnSet
+                : [events[key]] as EventHandlerFnSet;
 
             newEvents.forEach((event) => {
                 if (typeof(event) === 'function') {
@@ -52,16 +53,44 @@ export class Callbacks {
      *
      * @return {EventHandlerFn} callback
      */
-    public get(key: string): EventHandlerFn {
+    public get(key: string): EventHandlerFn | EventHandlerFnSet {
         if (!this.has(key)) {
             return null;
         }
 
-        const result = this.events[key];
+        const result: EventHandlerFnSet = this.events[key];
 
         return result.length > 1
             ? result
             : result.pop();
+    }
+
+    /**
+     * удалить событие
+     * @param {IEventHandlerSetProps} events
+     * @return {Callbacks}
+     */
+    public remove(events: IEventHandlerSetProps): Callbacks {
+        Object.keys(events || {}).forEach((key) => {
+            if (!this.has(key)) {
+                return;
+            }
+
+            const remoedEvents: EventHandlerFnSet = Array.isArray(events[key])
+                ? events[key] as EventHandlerFnSet
+                : [events[key]] as EventHandlerFnSet;
+
+            while (remoedEvents.length) {
+                const event = remoedEvents.pop();
+                const idx = this.events[key].findIndex((fn) => event === fn);
+
+                if (!!~idx) {
+                    this.events[key].splice(idx, 1);
+                }
+            }
+        });
+
+        return this;
     }
 
     /**

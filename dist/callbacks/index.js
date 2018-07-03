@@ -73,6 +73,42 @@ function () {
       return result.length > 1 ? result : result.pop();
     }
     /**
+     * удалить событие
+     * @param {IEventHandlerSetProps} events
+     * @return {Callbacks}
+     */
+
+  }, {
+    key: "remove",
+    value: function remove(events) {
+      var _this2 = this;
+
+      Object.keys(events || {}).forEach(function (key) {
+        if (!_this2.has(key)) {
+          return;
+        }
+
+        var remoedEvents = Array.isArray(events[key]) ? events[key] : [events[key]];
+
+        var _loop = function _loop() {
+          var event = remoedEvents.pop();
+
+          var idx = _this2.events[key].findIndex(function (fn) {
+            return event === fn;
+          });
+
+          if (!!~idx) {
+            _this2.events[key].splice(idx, 1);
+          }
+        };
+
+        while (remoedEvents.length) {
+          _loop();
+        }
+      });
+      return this;
+    }
+    /**
      * Возвращает установлена ли функция с таким ключом
      *
      * @param {String} key

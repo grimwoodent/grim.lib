@@ -122,8 +122,9 @@ events.trigger('doSomething', ...someArgs);
 
 | Method | Returns | Description |
 | ------ | ------- | ----------- |
-| set(event: *\<object\>*) | *\<this\>* | Add new callbacks by object { \[key\]: function } |
+| set(event: *\<object\>*) | *\<this\>* | Add new callbacks by object { \[key\]: function } or { \[key\]: array of functions } |
 | get(key: *\<string\>*) | *\<function \| array\>* | Return function or array of functions |
+| remove(event: *\<object\>*) | *\<this\>* | Removes method or array of methods|
 | has(key: *\<string\>*) | *\<boolean\>* | Return is callbacks exist for key |
 | trigger(key: *\<string\>*, ...args: *\<any\>*) | *\<any\>* | Trigger callbacks by key |
 
