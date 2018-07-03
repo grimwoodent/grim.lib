@@ -118,6 +118,15 @@ const events = new Callbacks({
 events.trigger('doSomething', ...someArgs);
 ```
 
+## Methods
+
+| Method | Returns | Description |
+| ------ | ------- | ----------- |
+| set(event: *\<object\>*) | *\<this\>* | Add new callbacks by object { \[key\]: function } |
+| get(key: *\<string\>*) | *\<function \| array\>* | Return function or array of functions |
+| has(key: *\<string\>*) | *\<boolean\>* | Return is callbacks exist for key |
+| trigger(key: *\<string\>*, ...args: *\<any\>*) | *\<any\>* | Trigger callbacks by key |
+
 # UID generators
 
 @see [UIDs Readme](https://github.com/grimwoodent/grim.uid#readme)

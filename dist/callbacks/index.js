@@ -38,7 +38,20 @@ function () {
   _createClass(Callbacks, [{
     key: "set",
     value: function set(events) {
-      this.events = Object.assign(this.events, events);
+      var _this = this;
+
+      Object.keys(events || {}).forEach(function (key) {
+        if (!_this.events[key]) {
+          _this.events[key] = [];
+        }
+
+        var newEvents = Array.isArray(events[key]) ? events[key] : [events[key]];
+        newEvents.forEach(function (event) {
+          if (typeof event === 'function') {
+            _this.events[key].push(event);
+          }
+        });
+      });
       return this;
     }
     /**
@@ -52,7 +65,29 @@ function () {
   }, {
     key: "get",
     value: function get(key) {
-      return this.events[key] || null;
+      if (!this.has(key)) {
+        return null;
+      }
+
+      var result = this.events[key];
+      return result.length > 1 ? result : result.pop();
+    }
+    /**
+     * Возвращает установлена ли функция с таким ключом
+     *
+     * @param {String} key
+     *
+     * @return {Boolean}
+     */
+
+  }, {
+    key: "has",
+    value: function has(key) {
+      if (typeof key !== 'string') {
+        return false;
+      }
+
+      return key && this.events[key] && !!this.events[key].length;
     }
     /**
      * Вызвать функцию по ключу с аргументами
@@ -65,18 +100,23 @@ function () {
   }, {
     key: "trigger",
     value: function trigger(key) {
-      if (!this.isSet(key)) {
-        return undefined;
-      }
-
       for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         args[_key - 1] = arguments[_key];
       }
 
-      return this.events[key].apply(undefined, args);
+      if (!this.has(key)) {
+        return undefined;
+      }
+
+      var result = this.events[key].map(function (event) {
+        return event.apply(undefined, args);
+      });
+      return result.length > 1 ? result : result.pop();
     }
     /**
      * Возвращает установлена ли функция с таким ключом
+     *
+     * @deprecated
      *
      * @param {String} key
      *
@@ -86,7 +126,7 @@ function () {
   }, {
     key: "isSet",
     value: function isSet(key) {
-      return key && this.events[key] && typeof this.events[key] === 'function';
+      return this.has(key);
     }
   }]);
 

@@ -1,7 +1,11 @@
 type EventHandlerFn = (...args: any[]) => any;
 
-interface IEventHandlerSet {
+interface IEventHandlerSetProps {
     [key: string]: EventHandlerFn;
+}
+
+interface IEventHandlerSet {
+    [key: string]: EventHandlerFn[];
 }
 
 export class Callbacks {
@@ -10,7 +14,7 @@ export class Callbacks {
     /**
      * @param {Object} events
      */
-    constructor(events: IEventHandlerSet) {
+    constructor(events: IEventHandlerSetProps) {
         this.set(events);
     }
 
@@ -21,8 +25,22 @@ export class Callbacks {
      *
      * @return {Callbacks} self
      */
-    public set(events: IEventHandlerSet): Callbacks {
-        this.events = Object.assign(this.events, events);
+    public set(events: IEventHandlerSetProps): Callbacks {
+        Object.keys(events || {}).forEach((key) => {
+            if (!this.events[key]) {
+                this.events[key] = [];
+            }
+
+            const newEvents = Array.isArray(events[key])
+                ? events[key]
+                : [events[key]];
+
+            newEvents.forEach((event) => {
+                if (typeof(event) === 'function') {
+                    this.events[key].push(event);
+                }
+            });
+        });
 
         return this;
     }
@@ -35,7 +53,30 @@ export class Callbacks {
      * @return {EventHandlerFn} callback
      */
     public get(key: string): EventHandlerFn {
-        return this.events[key] || null;
+        if (!this.has(key)) {
+            return null;
+        }
+
+        const result = this.events[key];
+
+        return result.length > 1
+            ? result
+            : result.pop();
+    }
+
+    /**
+     * Возвращает установлена ли функция с таким ключом
+     *
+     * @param {String} key
+     *
+     * @return {Boolean}
+     */
+    public has(key: string): boolean {
+        if (typeof(key) !== 'string') {
+            return false;
+        }
+
+        return key && this.events[key] && !!this.events[key].length;
     }
 
     /**
@@ -46,21 +87,27 @@ export class Callbacks {
      * @return {any} result
      */
     public trigger(key: string, ...args: any[]): any {
-        if (!this.isSet(key)) {
+        if (!this.has(key)) {
             return undefined;
         }
 
-        return this.events[key].apply(undefined, args);
+        const result = this.events[key].map((event) => event.apply(undefined, args));
+
+        return result.length > 1
+            ? result
+            : result.pop();
     }
 
     /**
      * Возвращает установлена ли функция с таким ключом
+     *
+     * @deprecated
      *
      * @param {String} key
      *
      * @return {Boolean}
      */
     public isSet(key: string): boolean {
-        return key && this.events[key] && typeof(this.events[key]) === 'function';
+        return this.has(key);
     }
 }
