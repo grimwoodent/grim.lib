@@ -18,6 +18,15 @@ describe('Callbacks', () => {
         expect(events.get('doneCallback')).to.be.equals(doneCallback);
     });
 
+    it('should get callbacks multiply times', () => {
+        const doneCallback = () => {};
+        const events = new Callbacks();
+
+        events.set({ doneCallback });
+        expect(events.get('doneCallback')).to.be.equals(doneCallback);
+        expect(events.get('doneCallback')).to.be.equals(doneCallback);
+    });
+
     it('should set multiply callbacks', () => {
         const doneCallback1 = () => {};
         const doneCallback2 = () => {};
@@ -25,6 +34,17 @@ describe('Callbacks', () => {
         const events = new Callbacks();
 
         events.set({ doneCallback });
+        expect(events.get('doneCallback')).to.be.deep.equals(doneCallback);
+    });
+
+    it('should get multiply callbacks multiply times', () => {
+        const doneCallback1 = () => {};
+        const doneCallback2 = () => {};
+        const doneCallback = [doneCallback1, doneCallback2];
+        const events = new Callbacks();
+
+        events.set({ doneCallback });
+        expect(events.get('doneCallback')).to.be.deep.equals(doneCallback);
         expect(events.get('doneCallback')).to.be.deep.equals(doneCallback);
     });
 

@@ -58,11 +58,11 @@ export class Callbacks {
             return null;
         }
 
-        const result: EventHandlerFnSet = this.events[key];
+        const result: EventHandlerFnSet = [].concat(this.events[key]);
 
         return result.length > 1
             ? result
-            : result.pop();
+            : result[0];
     }
 
     /**

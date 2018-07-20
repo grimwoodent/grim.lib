@@ -69,8 +69,8 @@ function () {
         return null;
       }
 
-      var result = this.events[key];
-      return result.length > 1 ? result : result.pop();
+      var result = [].concat(this.events[key]);
+      return result.length > 1 ? result : result[0];
     }
     /**
      * удалить событие
