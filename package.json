@@ -29,7 +29,7 @@
     "cross-env": "^5.1.4",
     "del-cli": "^1.1.0",
     "ignore-styles": "^5.0.1",
-    "jsdom": "^11.7.0",
+    "jsdom": "^14.0.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^5.0.5",
     "ts-node": "^5.0.1",
