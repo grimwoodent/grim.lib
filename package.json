@@ -1,6 +1,6 @@
 {
   "name": "grim.lib",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Lib with different usefull stuff",
   "main": "dist/index.js",
   "files": [
